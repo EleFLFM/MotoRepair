@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">MotoRepair</string>
+
+
+    <string name="edit_product">Editar producto</string>
+    <string name="delete_product">Eliminar producto</string>
+    <string name="product_image">Imagen del producto</string>
+    <string name="app_title">mantenimiento y reparación de motores eléctricos</string>
+    <string name="welcome_text">¡Bienvenido a tu app para el control de mantenimiento y reparación de motores eléctricos</string>
+    <string name="sign_in_with_google">Iniciar con Google</string>
+    <string name="copyright_text">© 2025 Sistema de mantenimiento y reparación de motores eléctricos</string>
+</resources>

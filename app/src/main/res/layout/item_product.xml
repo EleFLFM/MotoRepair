@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp"
+    android:background="@drawable/fondo"> <!-- Imagen de fondo -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Imagen del producto -->
+        <ImageView
+            android:id="@+id/ivProductImage"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="Imagen del producto"/>
+
+        <!-- Nombre del producto -->
+        <TextView
+            android:id="@+id/tvProductName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre del Producto"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_toEndOf="@id/ivProductImage"
+            android:layout_marginStart="16dp"/>
+
+        <!-- Precio del producto -->
+        <TextView
+            android:id="@+id/tvProductPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Precio: $10.00"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_below="@id/tvProductName"
+            android:layout_toEndOf="@id/ivProductImage"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"/>
+
+        <!-- Cantidad del producto -->
+        <TextView
+            android:id="@+id/tvProductQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cantidad: 5"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_below="@id/tvProductPrice"
+            android:layout_toEndOf="@id/ivProductImage"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"/>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

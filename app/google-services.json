@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "1050386292875",
+    "firebase_url": "https://motorepair-d3b71-default-rtdb.firebaseio.com",
+    "project_id": "motorepair-d3b71",
+    "storage_bucket": "motorepair-d3b71.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1050386292875:android:5d7a414190efa849ebb48e",
+        "android_client_info": {
+          "package_name": "com.example.motorepair"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWaF1UKYi6OdHVaDgFeHQ2sAnsa67R5nY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1050386292875:android:d2ce7d24cf9cfe42ebb48e",
+        "android_client_info": {
+          "package_name": "com.example.repair"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWaF1UKYi6OdHVaDgFeHQ2sAnsa67R5nY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
