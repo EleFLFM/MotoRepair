@@ -46,12 +46,12 @@
         android:id="@+id/tvTotalProducts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Total de productos: 0"
-        android:textSize="18sp"
-        android:textColor="@color/white"
-        android:textStyle="bold"
         android:layout_marginTop="16dp"
-        android:gravity="center" />
+        android:gravity="center"
+        android:text="Total de productos: 0"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <!-- Lista de productos -->
     <androidx.recyclerview.widget.RecyclerView

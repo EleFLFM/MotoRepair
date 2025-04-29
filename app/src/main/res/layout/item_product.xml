@@ -23,7 +23,7 @@
 
         <!-- Nombre del producto -->
         <TextView
-            android:id="@+id/tvProductName"
+            android:id="@+id/tvNombreProducto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nombre del Producto"
@@ -35,26 +35,26 @@
 
         <!-- Precio del producto -->
         <TextView
-            android:id="@+id/tvProductPrice"
+            android:id="@+id/tvPrecioProducto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Precio: $10.00"
             android:textSize="16sp"
             android:textColor="@color/black"
-            android:layout_below="@id/tvProductName"
+            android:layout_below="@id/tvNombreProducto"
             android:layout_toEndOf="@id/ivProductImage"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"/>
 
         <!-- Cantidad del producto -->
         <TextView
-            android:id="@+id/tvProductQuantity"
+            android:id="@+id/tvCantidadProducto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cantidad: 5"
             android:textSize="16sp"
             android:textColor="@color/black"
-            android:layout_below="@id/tvProductPrice"
+            android:layout_below="@id/tvPrecioProducto"
             android:layout_toEndOf="@id/ivProductImage"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"/>

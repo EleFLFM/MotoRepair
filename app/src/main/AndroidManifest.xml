@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Repair"
         tools:targetApi="31">
         <activity
+            android:name=".CreateProduct"
+            android:exported="false" />
+        <activity
             android:name=".CreateService"
             android:exported="false" />
         <activity
