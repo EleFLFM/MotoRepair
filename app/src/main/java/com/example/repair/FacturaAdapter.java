@@ -11,15 +11,9 @@ import java.util.List;
 public class FacturaAdapter extends RecyclerView.Adapter<FacturaAdapter.FacturaViewHolder> {
 
     private List<Factura> facturas;
-    private OnFacturaClickListener listener;
 
-    public interface OnFacturaClickListener {
-        void onFacturaClick(Factura factura);
-    }
-
-    public FacturaAdapter(List<Factura> facturas, OnFacturaClickListener listener) {
+    public FacturaAdapter(List<Factura> facturas) {
         this.facturas = facturas;
-        this.listener = listener;
     }
 
     @NonNull
@@ -33,7 +27,7 @@ public class FacturaAdapter extends RecyclerView.Adapter<FacturaAdapter.FacturaV
     @Override
     public void onBindViewHolder(@NonNull FacturaViewHolder holder, int position) {
         Factura factura = facturas.get(position);
-        holder.bind(factura, listener);
+        holder.bind(factura);
     }
 
     @Override
@@ -41,29 +35,22 @@ public class FacturaAdapter extends RecyclerView.Adapter<FacturaAdapter.FacturaV
         return facturas.size();
     }
 
-    public void updateData(List<Factura> nuevasFacturas) {
-        facturas = nuevasFacturas;
-        notifyDataSetChanged();
-    }
-
     static class FacturaViewHolder extends RecyclerView.ViewHolder {
-        TextView tvCliente, tvFecha, tvTotal, tvEstado;
+        TextView tvNumero, tvCliente, tvFecha, tvTotal;
 
         public FacturaViewHolder(@NonNull View itemView) {
             super(itemView);
+            tvNumero = itemView.findViewById(R.id.tvInvoiceNumber);
             tvCliente = itemView.findViewById(R.id.tvCliente);
             tvFecha = itemView.findViewById(R.id.tvFecha);
             tvTotal = itemView.findViewById(R.id.tvTotal);
-            tvEstado = itemView.findViewById(R.id.tvEstado);
         }
 
-        public void bind(Factura factura, OnFacturaClickListener listener) {
-            tvCliente.setText(factura.getCliente());
-            tvFecha.setText(factura.getFecha());
-            tvTotal.setText(String.format("$%.2f", factura.getTotal()));
-            tvEstado.setText(factura.getEstado());
-
-            itemView.setOnClickListener(v -> listener.onFacturaClick(factura));
+        public void bind(Factura factura) {
+            tvNumero.setText("Factura #" + factura.getNumeroFactura());
+            tvCliente.setText("Cliente: " + factura.getNombreCliente());
+            tvFecha.setText("Fecha: " + factura.getFecha());
+            tvTotal.setText("Total: $" + String.format("%.2f", factura.getTotal()));
         }
     }
 }

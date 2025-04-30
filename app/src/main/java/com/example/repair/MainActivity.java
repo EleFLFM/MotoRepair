@@ -50,8 +50,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Normaliza el email para buscar en Firebase
-        String normalizedEmail = email.toLowerCase().replace(",", ".");
-        String dbKey = normalizedEmail.replace(".", "_");
+        
+        String dbKey = email;
 
         mDatabase.child(dbKey).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

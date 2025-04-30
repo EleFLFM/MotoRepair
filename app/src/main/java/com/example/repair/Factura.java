@@ -1,35 +1,59 @@
 package com.example.repair;
 
+import java.util.List;
+
 public class Factura {
-    private String id;
-    private String cliente;
+    private String numeroFactura;
+    private String nombreCliente;
     private String fecha;
+    private List<ItemProduct> productos;
+    private List<ItemServicio> servicios;
     private double total;
-    private String descripcion;
-    private String estado; // "pendiente", "pagada", "cancelada"
+    private String userId;
+    private String estado; // Nuevo campo: estado de la factura (pagada, pendiente, cancelada)
+    private String descripcion; // Nuevo campo: descripción de la factura
 
     // Constructor vacío requerido por Firebase
     public Factura() {}
 
-    public Factura(String cliente, String fecha, double total, String descripcion) {
-        this.cliente = cliente;
-        this.fecha = fecha;
-        this.total = total;
-        this.descripcion = descripcion;
-        this.estado = "pendiente";
-    }
-
     // Getters y setters
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
-    public String getCliente() { return cliente; }
-    public void setCliente(String cliente) { this.cliente = cliente; }
-    public String getFecha() { return fecha; }
-    public void setFecha(String fecha) { this.fecha = fecha; }
-    public double getTotal() { return total; }
-    public void setTotal(double total) { this.total = total; }
-    public String getDescripcion() { return descripcion; }
-    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
+    public String getNumeroFactura() { return numeroFactura; }
+    public void setNumeroFactura(String numeroFactura) { this.numeroFactura = numeroFactura; }
     public String getEstado() { return estado; }
     public void setEstado(String estado) { this.estado = estado; }
+
+    public String getDescripcion() { return descripcion; }
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
+
+    public String getNombreCliente() { return nombreCliente; }
+    public void setNombreCliente(String nombreCliente) { this.nombreCliente = nombreCliente; }
+
+    public String getFecha() { return fecha; }
+    public void setFecha(String fecha) { this.fecha = fecha; }
+
+    public List<ItemProduct> getProductos() { return productos; }
+    public void setProductos(List<ItemProduct> productos) { this.productos = productos; }
+
+    public List<ItemServicio> getServicios() { return servicios; }
+    public void setServicios(List<ItemServicio> servicios) { this.servicios = servicios; }
+
+    public double getTotal() { return total; }
+    public void setTotal(double total) { this.total = total; }
+
+    public String getUserId() { return userId; }
+    public void setUserId(String userId) { this.userId = userId; }
+
+    public void calcularTotal() {
+        total = 0.0;
+        if (productos != null) {
+            for (ItemProduct producto : productos) {
+                total += producto.getSubtotal();
+            }
+        }
+        if (servicios != null) {
+            for (ItemServicio servicio : servicios) {
+                total += servicio.getPrecio();
+            }
+        }
+    }
 }

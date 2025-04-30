@@ -91,7 +91,7 @@ public class DetalleFacturaActivity extends AppCompatActivity {
     }
 
     private void mostrarFactura(Factura factura) {
-        tvCliente.setText("Cliente: " + factura.getCliente());
+        tvCliente.setText("Cliente: " + factura.getNombreCliente());
         tvFecha.setText("Fecha: " + factura.getFecha());
         tvEstado.setText(factura.getEstado());
         tvTotal.setText("Total: $" + String.format("%.2f", factura.getTotal()));
