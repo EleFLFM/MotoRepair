@@ -14,122 +14,95 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
 
     private List<Servicio> servicios;
     private OnServiceClickListener listener;
-    private boolean isSelectMode; // Modo selección para factura
+    private boolean deleteMode = false;
 
     public interface OnServiceClickListener {
         void onServiceClick(Servicio servicio);
         void onServiceLongClick(Servicio servicio);
+        void onDeleteService(Servicio servicio, int position);
     }
 
-    // Constructor para uso en ServiceActivity
     public ServiceAdapter(List<Servicio> servicios, OnServiceClickListener listener) {
         this.servicios = servicios;
         this.listener = listener;
-        this.isSelectMode = false;
     }
 
-    // Constructor alternativo para uso en otros contextos (como facturación)
-    public ServiceAdapter(List<Servicio> servicios, OnServiceClickListener listener, boolean isSelectMode) {
-        this.servicios = servicios;
-        this.listener = listener;
-        this.isSelectMode = isSelectMode;
+    public void toggleDeleteMode() {
+        deleteMode = !deleteMode;
+        notifyDataSetChanged();
+    }
+
+    public boolean isDeleteMode() {
+        return deleteMode;
     }
 
     @NonNull
     @Override
     public ServiceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        int layoutRes = isSelectMode ? R.layout.item_service_select : R.layout.item_service_manage;
-        View view = LayoutInflater.from(parent.getContext()).inflate(layoutRes, parent, false);
-        return new ServiceViewHolder(view, isSelectMode);
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_service_manage, parent, false);
+        return new ServiceViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ServiceViewHolder holder, int position) {
         Servicio servicio = servicios.get(position);
-        holder.bind(servicio);
+        holder.bind(servicio, deleteMode);
     }
 
     @Override
     public int getItemCount() {
-        return servicios != null ? servicios.size() : 0;
-    }
-
-    public void updateServices(List<Servicio> newServices) {
-        this.servicios = newServices;
-        notifyDataSetChanged();
-    }
-
-    public void addService(Servicio servicio) {
-        this.servicios.add(servicio);
-        notifyItemInserted(servicios.size() - 1);
+        return servicios.size();
     }
 
     class ServiceViewHolder extends RecyclerView.ViewHolder {
         TextView tvName, tvDescription, tvPrice;
-        Button btnSelect, btnEdit, btnDelete;
+        Button btnEdit, btnDelete;
 
-        public ServiceViewHolder(@NonNull View itemView, boolean isSelectMode) {
+        public ServiceViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tvServiceName);
             tvDescription = itemView.findViewById(R.id.tvServiceDescription);
             tvPrice = itemView.findViewById(R.id.tvServicePrice);
+            btnEdit = itemView.findViewById(R.id.btnEditService);
+            btnDelete = itemView.findViewById(R.id.btnDeleteService);
+        }
 
-            // Setup click listeners on the entire item
+        public void bind(Servicio servicio, boolean deleteMode) {
+            tvName.setText(servicio.getNombre());
+            tvDescription.setText(servicio.getDescripcion());
+            tvPrice.setText(String.format(Locale.getDefault(), "$%.2f", servicio.getPrecio()));
+
+            // Mostrar/ocultar botones según el modo
+            btnEdit.setVisibility(deleteMode ? View.GONE : View.VISIBLE);
+            btnDelete.setVisibility(deleteMode ? View.VISIBLE : View.GONE);
+
+            // Configurar listeners
             itemView.setOnClickListener(v -> {
-                int position = getAdapterPosition();
-                if (position != RecyclerView.NO_POSITION && listener != null) {
-                    listener.onServiceClick(servicios.get(position));
+                if (!deleteMode && listener != null) {
+                    listener.onServiceClick(servicio);
                 }
             });
 
             itemView.setOnLongClickListener(v -> {
-                int position = getAdapterPosition();
-                if (position != RecyclerView.NO_POSITION && listener != null) {
-                    listener.onServiceLongClick(servicios.get(position));
+                if (listener != null) {
+                    listener.onServiceLongClick(servicio);
                     return true;
                 }
                 return false;
             });
 
-            // Setup buttons if they exist in the layout
-            if (isSelectMode) {
-                btnSelect = itemView.findViewById(R.id.btnSelectService);
-                if (btnSelect != null) {
-                    btnSelect.setOnClickListener(v -> {
-                        int position = getAdapterPosition();
-                        if (position != RecyclerView.NO_POSITION && listener != null) {
-                            listener.onServiceClick(servicios.get(position));
-                        }
-                    });
+            btnEdit.setOnClickListener(v -> {
+                if (listener != null) {
+                    listener.onServiceClick(servicio);
                 }
-            } else {
-                btnEdit = itemView.findViewById(R.id.btnEditService);
-                btnDelete = itemView.findViewById(R.id.btnDeleteService);
+            });
 
-                if (btnEdit != null) {
-                    btnEdit.setOnClickListener(v -> {
-                        int position = getAdapterPosition();
-                        if (position != RecyclerView.NO_POSITION && listener != null) {
-                            listener.onServiceClick(servicios.get(position));
-                        }
-                    });
+            btnDelete.setOnClickListener(v -> {
+                if (listener != null) {
+                    listener.onDeleteService(servicio, getAdapterPosition());
                 }
-
-                if (btnDelete != null) {
-                    btnDelete.setOnClickListener(v -> {
-                        int position = getAdapterPosition();
-                        if (position != RecyclerView.NO_POSITION && listener != null) {
-                            listener.onServiceLongClick(servicios.get(position));
-                        }
-                    });
-                }
-            }
-        }
-
-        public void bind(Servicio servicio) {
-            tvName.setText(servicio.getNombre());
-            tvDescription.setText(servicio.getDescripcion());
-            tvPrice.setText(String.format(Locale.getDefault(), "$%.2f", servicio.getPrecio()));
+            });
         }
     }
 }

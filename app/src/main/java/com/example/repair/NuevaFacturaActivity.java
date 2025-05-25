@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -50,7 +51,7 @@ public class NuevaFacturaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_nueva_factura);
 
         // Inicializar Firebase
-        mAuth = FirebaseAuth.getInstance();
+
         databaseRef = FirebaseDatabase.getInstance().getReference("facturas");
 
         // Vincular vistas
@@ -344,37 +345,34 @@ public class NuevaFacturaActivity extends AppCompatActivity {
     }
 
     private void guardarFactura() {
-        // Validaciones mejoradas con feedback visual
-        if (!validarCampos()) {
-            return;
-        }
+        if (!validarCampos()) return;
 
-        // Mostrar progreso
         ProgressDialog progress = new ProgressDialog(this);
         progress.setMessage("Guardando factura...");
         progress.setCancelable(false);
         progress.show();
 
-        // Crear objeto Factura
+        String facturaId = databaseRef.push().getKey();
+
         Factura factura = new Factura();
+        factura.setId(facturaId);
         factura.setNumeroFactura(etNumeroFactura.getText().toString().trim());
         factura.setNombreCliente(etCliente.getText().toString().trim());
         factura.setFecha(etFecha.getText().toString().trim());
-        factura.setProductos(new ArrayList<>(productosSeleccionados)); // Copia defensiva
-        factura.setServicios(new ArrayList<>(serviciosSeleccionados)); // Copia defensiva
-//        factura.setUserId("");
+        factura.setProductos(new ArrayList<>(productosSeleccionados));
+        factura.setServicios(new ArrayList<>(serviciosSeleccionados));
         factura.calcularTotal();
 
-        // Guardar en Firebase
-        databaseRef.push().setValue(factura)
+        databaseRef.child(facturaId).setValue(factura)
                 .addOnCompleteListener(task -> {
                     progress.dismiss();
                     if (task.isSuccessful()) {
-                        Toast.makeText(this, "✅ Factura guardada", Toast.LENGTH_SHORT).show();
                         actualizarInventario();
+                        setResult(RESULT_OK); // Indica éxito
                         finish();
                     } else {
-                        mostrarError("Error al guardar: " + task.getException().getMessage());
+                        Toast.makeText(this, "Error: " + task.getException().getMessage(),
+                                Toast.LENGTH_LONG).show();
                     }
                 });
     }

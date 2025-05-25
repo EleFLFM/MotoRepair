@@ -36,9 +36,32 @@ public class FacturacionActivity extends AppCompatActivity {
         // Configurar RecyclerView
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new FacturaAdapter(facturas);
-        recyclerView.setAdapter(adapter);
 
+        adapter = new FacturaAdapter(facturas, new FacturaAdapter.OnFacturaClickListener() {
+            @Override
+            public void onFacturaClick(Factura factura) {
+                // Crear Intent para abrir la actividad de detalle
+                Intent intent = new Intent(FacturacionActivity.this, DetalleFacturaActivity.class);
+
+                // Pasar los datos necesarios a la actividad de detalle
+                intent.putExtra("FACTURA_ID", factura.getId());
+                intent.putExtra("NUMERO_FACTURA", factura.getNumeroFactura());
+                intent.putExtra("NOMBRE_CLIENTE", factura.getNombreCliente());
+
+                // Iniciar la actividad
+                startActivity(intent);
+
+
+            }
+
+            @Override
+            public void onFacturaLongClick(Factura factura) {
+                //aca quiero que se elimine
+                Toast.makeText(FacturacionActivity.this, "hola", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        recyclerView.setAdapter(adapter);
         // Botón para agregar nueva factura
         FloatingActionButton fabAdd = findViewById(R.id.fabAdd);
         fabAdd.setOnClickListener(v -> {
@@ -57,7 +80,7 @@ public class FacturacionActivity extends AppCompatActivity {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Factura factura = snapshot.getValue(Factura.class);
                     if (factura != null) {
-                        factura.setUserId(snapshot.getKey());
+                        factura.setId(snapshot.getKey());
                         facturas.add(factura);
                     }
                 }

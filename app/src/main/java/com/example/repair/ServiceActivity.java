@@ -1,5 +1,6 @@
 package com.example.repair;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
@@ -43,7 +44,7 @@ public class ServiceActivity extends AppCompatActivity {
         // Inicializar Firebase
         serviciosRef = FirebaseDatabase.getInstance().getReference("servicios");
 
-        // Vincular vistas con los IDs correctos
+        // Vincular vistas
         servicesRecyclerView = findViewById(R.id.servicesRecyclerView);
         addButton = findViewById(R.id.addButton);
         refreshButton = findViewById(R.id.refreshButton);
@@ -61,13 +62,18 @@ public class ServiceActivity extends AppCompatActivity {
             public void onServiceLongClick(Servicio servicio) {
                 mostrarOpcionesServicio(servicio);
             }
+
+            @Override
+            public void onDeleteService(Servicio servicio, int position) {
+                confirmarEliminacion(servicio, position);
+            }
         });
         servicesRecyclerView.setAdapter(serviceAdapter);
 
-        // Configurar botones con los IDs correctos
+        // Configurar botones
         addButton.setOnClickListener(v -> abrirCrearServicio());
         refreshButton.setOnClickListener(v -> cargarServicios());
-        deleteButton.setOnClickListener(v -> mostrarModoEliminacion());
+        deleteButton.setOnClickListener(v -> toggleModoEliminacion());
 
         // Cargar servicios iniciales
         cargarServicios();
@@ -109,11 +115,38 @@ public class ServiceActivity extends AppCompatActivity {
     }
 
     private void mostrarOpcionesServicio(Servicio servicio) {
-        Toast.makeText(this, "Servicio seleccionado: " + servicio.getNombre(), Toast.LENGTH_SHORT).show();
+        // Puedes implementar un menú contextual aquí si lo necesitas
+        Toast.makeText(this, "Opciones para: " + servicio.getNombre(), Toast.LENGTH_SHORT).show();
     }
 
-    private void mostrarModoEliminacion() {
-        Toast.makeText(this, "Modo eliminación activado", Toast.LENGTH_SHORT).show();
+    private void toggleModoEliminacion() {
+        serviceAdapter.toggleDeleteMode();
+        if (serviceAdapter.isDeleteMode()) {
+            Toast.makeText(this, "Modo eliminación: Seleccione un servicio para eliminar", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Modo eliminación desactivado", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void confirmarEliminacion(Servicio servicio, int position) {
+        new AlertDialog.Builder(this)
+                .setTitle("Confirmar eliminación")
+                .setMessage("¿Estás seguro de eliminar el servicio: " + servicio.getNombre() + "?")
+                .setPositiveButton("Eliminar", (dialog, which) -> eliminarServicio(servicio.getId(), position))
+                .setNegativeButton("Cancelar", null)
+                .show();
+    }
+
+    private void eliminarServicio(String servicioId, int position) {
+        serviciosRef.child(servicioId).removeValue()
+                .addOnSuccessListener(aVoid -> {
+                    servicios.remove(position);
+                    serviceAdapter.notifyItemRemoved(position);
+                    Toast.makeText(ServiceActivity.this, "Servicio eliminado", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(ServiceActivity.this, "Error al eliminar: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
     }
 
     @Override

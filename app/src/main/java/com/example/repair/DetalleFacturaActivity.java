@@ -21,6 +21,7 @@ import java.util.List;
 public class DetalleFacturaActivity extends AppCompatActivity {
 
     private TextView tvCliente, tvFecha, tvEstado, tvTotal, tvDescripcion;
+    private TextView tvNumeroFactura;  // Añade esto con los demás TextView
     private Button btnEditar, btnEliminar, btnAgregarItem;
     private RecyclerView rvItems;
     private DatabaseReference facturasRef;
@@ -33,15 +34,28 @@ public class DetalleFacturaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle_factura);
 
-        // Obtener ID de la factura del Intent
-        facturaId = getIntent().getStringExtra("FACTURA_ID");
-        if (facturaId == null) {
-            Toast.makeText(this, "Error: No se encontró la factura", Toast.LENGTH_SHORT).show();
+        // Verifica primero si hay datos en el Intent
+        if (getIntent() == null || getIntent().getExtras() == null) {
+            Toast.makeText(this, "Error: No se recibieron datos", Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
 
-        // Inicializar Firebase
+        // Obtén el ID de dos formas alternativas
+        facturaId = getIntent().getStringExtra("FACTURA_ID");
+        Factura factura = (Factura) getIntent().getSerializableExtra("FACTURA_OBJECT");
+
+        if (facturaId == null && factura != null) {
+            facturaId = factura.getId();
+        }
+
+        if (facturaId == null || facturaId.isEmpty()) {
+            Toast.makeText(this, "Error: ID de factura inválido", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+
+        // Inicializa Firebase con el ID
         facturasRef = FirebaseDatabase.getInstance().getReference("facturas").child(facturaId);
 
         // Vincular vistas
@@ -91,6 +105,7 @@ public class DetalleFacturaActivity extends AppCompatActivity {
     }
 
     private void mostrarFactura(Factura factura) {
+        tvNumeroFactura.setText("Factura #" + factura.getNumeroFactura());
         tvCliente.setText("Cliente: " + factura.getNombreCliente());
         tvFecha.setText("Fecha: " + factura.getFecha());
         tvEstado.setText(factura.getEstado());
@@ -98,8 +113,17 @@ public class DetalleFacturaActivity extends AppCompatActivity {
         tvDescripcion.setText("Descripción: " + factura.getDescripcion());
 
         // Cambiar color según estado
-        int estadoColor = factura.getEstado().equals("pagada") ? R.color.green :
-                factura.getEstado().equals("cancelada") ? R.color.red : R.color.orange;
+        int estadoColor;
+        switch (factura.getEstado().toLowerCase()) {
+            case "pagada":
+                estadoColor = R.color.green;
+                break;
+            case "cancelada":
+                estadoColor = R.color.red;
+                break;
+            default:
+                estadoColor = R.color.orange;
+        }
         tvEstado.setBackgroundColor(getResources().getColor(estadoColor));
     }
 

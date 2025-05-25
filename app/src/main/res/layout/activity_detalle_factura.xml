@@ -13,130 +13,149 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- CardView para los detalles -->
+        <!-- CardView para los detalles principales -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="12dp"
             app:cardElevation="6dp"
-            app:cardBackgroundColor="#80FFFFFF">
+            app:cardBackgroundColor="#80FFFFFF"
+            android:layout_marginBottom="16dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="24dp">
+                android:padding="16dp">
 
-                <!-- Encabezado -->
+                <!-- Encabezado con número de factura -->
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tvNumeroFactura"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Detalle de Factura"
-                    android:textColor="@color/black"
-                    android:textSize="24sp"
+                    android:textSize="20sp"
                     android:textStyle="bold"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="16dp"/>
+                    android:layout_marginBottom="8dp"
+                    android:textColor="@color/black"/>
 
-                <!-- Información de la factura -->
+                <!-- Información del cliente -->
+                <TextView
+                    android:id="@+id/tvCliente"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="8dp"/>
+
+                <!-- Fecha y estado -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginBottom="16dp">
-
-                    <TextView
-                        android:id="@+id/tvCliente"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="18sp"
-                        android:layout_marginBottom="8dp"/>
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="8dp">
 
                     <TextView
                         android:id="@+id/tvFecha"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"/>
+                        android:textSize="14sp"
+                        android:layout_weight="1"/>
 
                     <TextView
                         android:id="@+id/tvEstado"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="4dp"
-                        android:layout_marginBottom="16dp"
-                        android:background="@drawable/bg_estado_factura"/>
-
-                    <TextView
-                        android:id="@+id/tvTotal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="16dp"/>
-
-                    <TextView
-                        android:id="@+id/tvDescripcion"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"/>
+                        android:background="@drawable/bg_estado_factura"
+                        android:textSize="14sp"/>
                 </LinearLayout>
 
-                <!-- Botones de acciones -->
-                <LinearLayout
+                <!-- Total y descripción -->
+                <TextView
+                    android:id="@+id/tvTotal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"/>
 
-                    <Button
-                        android:id="@+id/btnEditar"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginEnd="8dp"
-                        android:text="Editar"
-                        android:textColor="@color/white"
-                        android:backgroundTint="@color/blue"
-                        app:cornerRadius="28dp"/>
-
-                    <Button
-                        android:id="@+id/btnEliminar"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginStart="8dp"
-                        android:text="Eliminar"
-                        android:textColor="@color/white"
-                        android:backgroundTint="@color/red"
-                        app:cornerRadius="28dp"/>
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/tvDescripcion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="16dp"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Sección de servicios/items -->
-        <TextView
+        <!-- Sección de items -->
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Servicios/Productos"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="8dp"/>
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="#80FFFFFF">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvItems"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
 
-        <!-- Botón para agregar items -->
-        <Button
-            android:id="@+id/btnAgregarItem"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Items de Factura"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvItems"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"/>
+
+                <Button
+                    android:id="@+id/btnAgregarItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Agregar Item"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/green"
+                    app:cornerRadius="28dp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Botones de acciones -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Agregar Servicio/Producto"
-            android:textColor="@color/white"
-            android:backgroundTint="@color/green"
-            app:cornerRadius="28dp"/>
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/btnEditar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:text="Editar Factura"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/blue"
+                app:cornerRadius="28dp"/>
+
+            <Button
+                android:id="@+id/btnEliminar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:text="Eliminar Factura"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/red"
+                app:cornerRadius="28dp"/>
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

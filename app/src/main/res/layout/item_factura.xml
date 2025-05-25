@@ -18,31 +18,57 @@
             android:id="@+id/tvInvoiceNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="@color/black"/>
+            android:textSize="18sp"
+            android:textColor="@color/colorPrimary"/>
 
         <TextView
             android:id="@+id/tvCliente"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:textColor="@color/black"/>
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/tvFecha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:textColor="@color/black"/>
+            android:textSize="14sp"
+            android:textColor="@color/gray"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/tvProductosCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:drawableStart="@drawable/digital"
+                android:drawablePadding="4dp"
+                android:scaleX="1"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tvServiciosCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:drawableStart="@drawable/recibo"
+                android:drawablePadding="4dp"/>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tvTotal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="@color/black"/>
+            android:textColor="@color/green"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

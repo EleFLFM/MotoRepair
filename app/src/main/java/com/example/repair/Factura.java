@@ -1,8 +1,10 @@
 package com.example.repair;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Factura {
+    String id;
     private String numeroFactura;
     private String nombreCliente;
     private String fecha;
@@ -14,8 +16,19 @@ public class Factura {
     private String descripcion; // Nuevo campo: descripción de la factura
 
     // Constructor vacío requerido por Firebase
-    public Factura() {}
+    public Factura() {
+        productos = new ArrayList<>();
+        servicios = new ArrayList<>();
+    }
+    // Getter para el ID
+    public String getId() {
+        return id;
+    }
 
+    // Setter para el ID
+    public void setId(String id) {
+        this.id = id;
+    }
     // Getters y setters
     public String getNumeroFactura() { return numeroFactura; }
     public void setNumeroFactura(String numeroFactura) { this.numeroFactura = numeroFactura; }
