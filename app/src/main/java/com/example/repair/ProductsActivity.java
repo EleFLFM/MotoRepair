@@ -98,6 +98,7 @@ public class ProductsActivity extends AppCompatActivity {
         intent.putExtra("PRODUCTO_NOMBRE", producto.getNombre());
         intent.putExtra("PRODUCTO_PRECIO", producto.getPrecio());
         intent.putExtra("PRODUCTO_CANTIDAD", producto.getCantidad());
+        intent.putExtra("productId", producto.getId());
         startActivity(intent);
     }
 
