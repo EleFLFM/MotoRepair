@@ -14,15 +14,15 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
 
         // Obtener referencia a los CardView
-        CardView cardInventory = findViewById(R.id.card_inventory);
+        //CardView cardInventory = findViewById(R.id.card_inventory);
         CardView cardProducts = findViewById(R.id.card_products);
         CardView cardServices = findViewById(R.id.card_services);
         CardView cardBilling = findViewById(R.id.card_billing);
 
         // Configurar listeners para cada card
-        cardInventory.setOnClickListener(v -> {
-            startActivity(new Intent(MenuActivity.this, InventarioActivity.class));
-        });
+//        cardInventory.setOnClickListener(v -> {
+//            startActivity(new Intent(MenuActivity.this, InventarioActivity.class));
+//        });
 
         cardProducts.setOnClickListener(v -> {
             startActivity(new Intent(MenuActivity.this, ProductsActivity.class));
@@ -35,5 +35,10 @@ public class MenuActivity extends AppCompatActivity {
         cardBilling.setOnClickListener(v -> {
             startActivity(new Intent(MenuActivity.this, FacturacionActivity.class));
         });
+    }
+    public void navigateBack(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

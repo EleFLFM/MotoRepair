@@ -91,18 +91,20 @@
                 android:id="@+id/refreshButton"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/reiniciar"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Actualizar lista de servicios"
-                android:importantForAccessibility="yes"/>
+                android:importantForAccessibility="yes"
+                android:onClick="navigateBack"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_back" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Actualizar"
-                android:textSize="14sp"
+                android:layout_marginTop="4dp"
+                android:text="Regresar"
                 android:textColor="@color/white"
-                android:layout_marginTop="4dp"/>
+                android:textSize="14sp" />
         </LinearLayout>
 
         <!-- Botón Agregar -->

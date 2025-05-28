@@ -59,13 +59,17 @@ public class ProductsActivity extends AppCompatActivity {
 
         // Configurar botones
         addButton.setOnClickListener(v -> abrirCrearProducto());
-        refreshButton.setOnClickListener(v -> cargarProductos());
+        refreshButton.setOnClickListener(v -> navigateBack());
         deleteButton.setOnClickListener(v -> mostrarModoEliminacion());
 
         // Cargar productos iniciales
         cargarProductos();
     }
-
+    public void navigateBack() {
+        Intent intent = new Intent(this, MenuActivity.class);
+        startActivity(intent);
+        finish();
+    }
     private void cargarProductos() {
         productosRef.addValueEventListener(new ValueEventListener() {
             @Override

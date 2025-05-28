@@ -71,7 +71,11 @@ public class FacturacionActivity extends AppCompatActivity {
         // Cargar facturas
         cargarFacturas();
     }
-
+    public void navigateBack(View view) {
+        Intent intent = new Intent(this, MenuActivity.class);
+        startActivity(intent);
+        finish();
+    }
     private void cargarFacturas() {
         facturasRef.addValueEventListener(new ValueEventListener() {
             @Override

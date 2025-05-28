@@ -81,19 +81,20 @@
 
             <ImageButton
                 android:id="@+id/btnActualizar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/editarproduct"
+                android:layout_width="47dp"
+                android:layout_height="81dp"
                 android:background="@android:color/transparent"
-                android:contentDescription="Actualizar"/>
+                android:contentDescription="Regresar"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_back" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Actualizar"
-                android:textSize="14sp"
+                android:layout_marginTop="4dp"
+                android:text="Regresar"
                 android:textColor="@color/white"
-                android:layout_marginTop="4dp"/>
+                android:textSize="14sp" />
         </LinearLayout>
 
         <!-- Botón Agregar -->

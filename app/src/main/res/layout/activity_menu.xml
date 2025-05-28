@@ -14,39 +14,6 @@
         android:padding="16dp">
 
         <!-- Botón para Inventario -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_inventory"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_marginBottom="16dp"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="6dp"
-            app:cardBackgroundColor="#80000000">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="16dp">
-
-                <ImageView
-                    android:id="@+id/ic_inventory"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:src="@drawable/inventario"
-                    android:layout_centerVertical="true"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Inventario"
-                    android:textSize="24sp"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:layout_toEndOf="@id/ic_inventory"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="16dp"/>
-            </RelativeLayout>
-        </androidx.cardview.widget.CardView>
 
         <!-- Botón para Productos -->
         <androidx.cardview.widget.CardView
@@ -152,5 +119,20 @@
                     android:layout_marginStart="16dp"/>
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="#80000000"
+            android:elevation="6dp"
+            android:onClick="navigateBack"
+            android:padding="16dp"
+            android:text="Cerrar sesión"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:cornerRadius="12dp" />
     </LinearLayout>
 </ScrollView>

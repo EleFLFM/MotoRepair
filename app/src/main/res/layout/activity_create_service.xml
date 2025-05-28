@@ -82,4 +82,12 @@
         android:textColor="@color/white"
         android:fontFamily="sans-serif-medium"
         android:padding="12dp" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/black"
+        android:onClick="cancelarCreacion"
+        android:text="Regresar" />
 </LinearLayout>

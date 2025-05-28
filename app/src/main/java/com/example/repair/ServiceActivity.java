@@ -3,6 +3,7 @@ package com.example.repair;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
@@ -72,12 +73,13 @@ public class ServiceActivity extends AppCompatActivity {
 
         // Configurar botones
         addButton.setOnClickListener(v -> abrirCrearServicio());
-        refreshButton.setOnClickListener(v -> cargarServicios());
+        refreshButton.setOnClickListener(v -> navigateBack());
         deleteButton.setOnClickListener(v -> toggleModoEliminacion());
 
         // Cargar servicios iniciales
         cargarServicios();
     }
+
 
     private void cargarServicios() {
         serviciosRef.addValueEventListener(new ValueEventListener() {
@@ -113,7 +115,11 @@ public class ServiceActivity extends AppCompatActivity {
         intent.putExtra("SERVICIO_PRECIO", servicio.getPrecio());
         startActivity(intent);
     }
-
+    public void navigateBack() {
+        Intent intent = new Intent(this, MenuActivity.class);
+        startActivity(intent);
+        finish();
+    }
     private void mostrarOpcionesServicio(Servicio servicio) {
         // Puedes implementar un menú contextual aquí si lo necesitas
         Toast.makeText(this, "Opciones para: " + servicio.getNombre(), Toast.LENGTH_SHORT).show();

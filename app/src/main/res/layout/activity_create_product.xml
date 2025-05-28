@@ -143,8 +143,17 @@
                     android:backgroundTint="@color/purple_500"
                     android:fontFamily="sans-serif-medium"
                     android:padding="12dp"
-                    android:text="AGREGAR"
+                    android:text="Agregar"
                     android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/btn_regresar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/purple_500"
+                    android:fontFamily="sans-serif-medium"
+                    android:onClick="navigateBack"
+                    android:text="Regresar" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>

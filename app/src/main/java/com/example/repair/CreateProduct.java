@@ -76,7 +76,11 @@ public class CreateProduct extends AppCompatActivity {
         btnSelectImage.setOnClickListener(v -> openImageChooser());
         btnTakePhoto.setOnClickListener(v -> takePhoto());
     }
-
+    public void navigateBack(View view) {
+        Intent intent = new Intent(this, ProductsActivity.class);
+        startActivity(intent);
+        finish();
+    }
     private void cargarDatosProducto(String id) {
         productosRef.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
